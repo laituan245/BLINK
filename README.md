@@ -3,14 +3,6 @@
 
 BLINK is an Entity Linking python library that uses Wikipedia as the target knowledge base.
 
-The process of linking entities to Wikipedia is also known as [Wikification](https://en.wikipedia.org/wiki/Wikification).
-
-
-### news
-- (September 2020) added [ELQ](https://github.com/facebookresearch/BLINK/tree/master/elq) - end-to-end entity linking on questions
-- (3 July 2020) added [FAISS](https://github.com/facebookresearch/faiss) support in BLINK - efficient exact/approximate retrieval
-
-
 ## BLINK architecture
 
 The BLINK architecture is described in the following paper:
@@ -77,13 +69,13 @@ To build and save FAISS (exact search) index yourself, run
 
 
 ### 3. Use BLINK interactively
-A quick way to explore the BLINK linking capabilities is through the `main_dense` interactive script. BLINK uses [Flair](https://github.com/flairNLP/flair) for Named Entity Recognition (NER) to obtain entity mentions from input text, then run entity linking. 
+A quick way to explore the BLINK linking capabilities is through the `main_dense` interactive script. BLINK uses [Flair](https://github.com/flairNLP/flair) for Named Entity Recognition (NER) to obtain entity mentions from input text, then run entity linking.
 
 ```console
 python blink/main_dense.py -i
 ```
 
-Fast mode: in the fast mode the model only uses the bi-encoder, which is much faster (accuracy drops slightly, see details in "Benchmarking BLINK" section). 
+Fast mode: in the fast mode the model only uses the bi-encoder, which is much faster (accuracy drops slightly, see details in "Benchmarking BLINK" section).
 
 ```console
 python blink/main_dense.py -i --fast
@@ -93,13 +85,13 @@ To run BLINK with saved FAISS index, run:
 ```console
 python blink/main_dense.py --faiss_index flat --index_path models/faiss_flat_index.pkl
 ```
-or 
+or
 ```console
 python blink/main_dense.py --faiss_index hnsw --index_path models/faiss_hnsw_index.pkl
 ```
 
 
-Example: 
+Example:
 ```console
 Bert and Ernie are two Muppets who appear together in numerous skits on the popular children's television show of the United States, Sesame Street.
 ```
@@ -161,6 +153,10 @@ data_to_link = [ {
 _, _, _, _, _, predictions, scores, = main_dense.run(args, None, *models, test_data=data_to_link)
 
 ```
+
+### 5. Use BLINK for event/QNodes linking
+
+An example code for event/QNodes linking is provided in `qnodes_linking.py` (e.g., run `python qnodes_linking.py`). The code will produce a visualization file named `visualization.html`.
 
 ## Benchmarking BLINK
 
