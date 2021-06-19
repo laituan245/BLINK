@@ -318,9 +318,9 @@ def load_models(args, logger=None):
         wikipedia_id2local_id,
         faiss_indexer,
     ) = _load_candidates(
-        args.entity_catalogue, 
-        args.entity_encoding, 
-        faiss_index=getattr(args, 'faiss_index', None), 
+        args.entity_catalogue,
+        args.entity_encoding,
+        faiss_index=getattr(args, 'faiss_index', None),
         index_path=getattr(args, 'index_path' , None),
         logger=logger,
     )
@@ -483,7 +483,9 @@ def run(
                     sample_prediction = []
                     for e_id in entity_list:
                         e_title = id2title[e_id]
-                        sample_prediction.append(e_title)
+                        e_url = id2url[e_id]
+                        e_text = id2text[e_id]
+                        sample_prediction.append((e_id, e_title, e_text, e_url))
                     predictions.append(sample_prediction)
 
                 # use only biencoder
@@ -554,7 +556,9 @@ def run(
                 for index in index_list:
                     e_id = entity_list[index]
                     e_title = id2title[e_id]
-                    sample_prediction.append(e_title)
+                    e_url = id2url[e_id]
+                    e_text = id2text[e_id]
+                    sample_prediction.append((e_id, e_title, e_text, e_url))
                     sample_scores.append(scores_list[index])
                 predictions.append(sample_prediction)
                 scores.append(sample_scores)
