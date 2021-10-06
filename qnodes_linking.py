@@ -1,8 +1,15 @@
 import argparse
+import wptools
 import blink.main_dense as main_dense
 from utils import visualize_el_preds
 
 models_path = "models/" # the path where you stored the BLINK models
+
+def get_wikidata_id_from_wikipedia_title(wikipedia_title):
+    wptools.page(wikipedia_title.replace(' ', '_'))
+    page = wptools.page('Barack_Obama')
+    wikibase = page.get_query().data['wikibase']
+    return wikibase
 
 config = {
     "test_entities": None,
@@ -78,7 +85,7 @@ for data, prediction in zip(raw_data, predictions):
     data_and_predictions.append({
         'type': data[0], 'context_left': data[1], 'mention': data[2], 'context_right': data[3],
         'top_entities': [
-            {'id': p[0], 'title': p[1], 'text': p[2], 'url': p[3]} for p in prediction[:5]
+            {'id': p[0], 'title': p[1], 'text': p[2], 'url': p[3], 'wikidata_id': get_wikidata_id_from_wikipedia_title(p[1])} for p in prediction[:5]
         ]
     })
 
