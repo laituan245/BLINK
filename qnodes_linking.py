@@ -6,8 +6,7 @@ from utils import visualize_el_preds
 models_path = "models/" # the path where you stored the BLINK models
 
 def get_wikidata_id_from_wikipedia_title(wikipedia_title):
-    wptools.page(wikipedia_title.replace(' ', '_'))
-    page = wptools.page('Barack_Obama')
+    page = wptools.page(wikipedia_title.replace(' ', '_'))
     wikibase = page.get_query().data['wikibase']
     return wikibase
 
